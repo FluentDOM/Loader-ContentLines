@@ -1,0 +1,20 @@
+{
+    "name": "fluentdom/loader-contentlines",
+    "type": "library",
+    "description": "vCard/iCalendar loaders for FluentDOM",
+    "keywords": ["xml","dom","vcard", "ícalendar", "fluentdom"],
+    "license": "MIT",
+    "homepage": "http://fluentdom.org",
+    "minimum-stability": "dev",
+    "authors": [
+        {"name": "FluentDOM Contributors", "homepage": "https://github.com/FluentDOM/FluentDOM/contributors"}
+    ],
+    "require": {
+      "php": ">=5.4.0",
+      "fluentdom/fluentdom": "*"
+    },
+    "autoload": {
+        "files" : ["src/plugin.php"],
+        "psr-4": {"FluentDOM\\ContentLines\\": "src/"}
+    }
+}
