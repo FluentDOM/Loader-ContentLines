@@ -4,8 +4,8 @@ require_once(__DIR__.'/../../vendor/autoload.php');
 
 $dom = FluentDOM::load(__DIR__.'/example.ical', 'text/calendar');
 $dom->formatOutput = TRUE;
-$dom->registerNamespace('xcal', 'urn:ietf:params:xml:ns:xcal');
+$dom->registerNamespace('xcal', 'urn:ietf:params:xml:ns:icalendar-2.0');
 
-echo $dom('string(//xcal:vevent/xcal:summary)');
+echo $dom('string(//xcal:vevent//xcal:summary)');
 echo "\n\n";
 echo $dom->saveXml();
