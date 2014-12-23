@@ -34,6 +34,32 @@ namespace FluentDOM\ContentLines\Loader {
 
     protected $_addPropertiesAsAttributes = TRUE;
 
+    // 20060102T120000
+    const PATTERN_DATETIME = '(^
+      (?P<year>\d{4})
+      (?P<month>\d{2})
+      (?P<day>\d{2})
+      T
+      (?P<hour>\d{2})
+      (?P<minute>\d{2})
+      (?P<second>\d{2})
+      (?P<offset>(?:Z|[+-]\d{2}:?\d{2}))?
+    $)x';
+
+    // 20081006
+    const PATTERN_DATE = '(^
+      (?P<year>\d{4})
+      (?P<month>\d{2})
+      (?P<day>\d{2})
+    $)x';
+
+    // 20081006
+    const PATTERN_OFFSET = '(^
+      (?P<prefix>[+-])
+      (?P<hours>\d{2})
+      (?P<minutes>\d{2})
+    $)x';
+
     /**
      * @see Loadable::load
      * @param mixed $source
@@ -60,29 +86,29 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     public function appendTo(Element $parent) {
-      $currentNode = $parent;
+      $groupNode = $componentsNode = $parent;
       foreach ($this as $token) {
         switch ($token->name) {
         case 'BEGIN' :
-          $currentNode = $currentNode->appendElement(strtolower($token->value));
-          $propertiesNode = $this->getWrapperNode($currentNode, $this->_nodeNames['properties']);
-          $currentNode = $this->getWrapperNode($currentNode, $this->_nodeNames['components']);
+          list($groupNode, $propertiesNode, $componentsNode) = $this->startGroup(
+            $componentsNode, strtolower($token->value)
+          );
           break;
         case 'END' :
-          $currentNode = $currentNode->parentNode;
+          $componentsNode = $this->endGroup($componentsNode, strtolower($token->value));
           break;
         case 'XML' :
           // @todo implement XML property
           break;
         default :
           if (!isset($propertiesNode)) {
-            $currentNode = $currentNode->appendElement($this->_nodeNames['default-component']);
-            $propertiesNode = $this->getWrapperNode($currentNode, $this->_nodeNames['properties']);
-            $currentNode = $this->getWrapperNode($currentNode, $this->_nodeNames['components']);
+            list($groupNode, $propertiesNode, $componentsNode) = $this->startGroup(
+              $componentsNode, $this->_nodeNames['default-component']
+            );
           }
           if (array_key_exists($token->name, $this->_properties)) {
             if ($this->_addPropertiesAsAttributes) {
-              $currentNode->setAttribute(strtolower($token->name), (string)$token->value);
+              $groupNode->setAttribute(strtolower($token->name), (string)$token->value);
               continue;
             }
             $this->appendValueTo($propertiesNode, $token);
@@ -96,6 +122,26 @@ namespace FluentDOM\ContentLines\Loader {
           $node->remove();
         }
       }
+    }
+
+    private function startGroup(Element $parent, $groupName) {
+      $group = $parent->appendElement($groupName);
+      return [
+        $group,
+        $this->getWrapperNode($group, $this->_nodeNames['properties']),
+        $this->getWrapperNode($group, $this->_nodeNames['components'])
+      ];
+    }
+
+    private function endGroup(Element $group, $groupName) {
+      while ($group->parentNode instanceof \DOMNode) {
+        if ($groupName == $group->localName) {
+          return $group->parentNode;
+        } else {
+          $group = $group->parentNode;
+        }
+      }
+      return $group;
     }
 
     /**
@@ -130,19 +176,10 @@ namespace FluentDOM\ContentLines\Loader {
           ?: (isset($this->_components[$token->name])
             ? $this->_components[$token->name]
             : 'unknown');
-        if (is_array($tokenType) || $tokenType === ':assoc') {
-          $elements = explode(';', (string)$token->value);
-          foreach ($elements as $index => $element) {
-            if ($tokenType === ':assoc') {
-              list($elementName, $elementValue) = explode('=', $element, 2);
-            } else {
-              $elementName = isset($tokenType[$index])
-                ? $tokenType[$index] : end($tokenType[$token->name]);
-              $elementValue = $element;
-            }
-            if (!empty($element)) {
-              $itemNode->appendElement(strtolower($elementName), $elementValue);
-            }
+        if (is_array($tokenType)) {
+          $tokenValues = $this->getValuesAsList($token->value, $tokenType);
+          foreach ($tokenValues as $tokenName => $tokenValue) {
+            $this->appendValueNode($itemNode, $tokenName, $tokenValue);
           }
         } else {
           $this->appendValueNode($itemNode, strtolower($tokenType), $token->value);
@@ -150,7 +187,70 @@ namespace FluentDOM\ContentLines\Loader {
       }
     }
 
-    private function appendValueNode(Element $parent, $type, $values) {
+    protected function getValuesAsList($value, $keys = FALSE) {
+      $result = [];
+      $elements = explode(';', (string)$value);
+      foreach ($elements as $index => $element) {
+        if (is_array($keys)) {
+          $elementName = isset($keys[$index]) ? $keys[$index] : end($keys);
+          $elementValue = $element;
+        } else {
+          list($elementName, $elementValue) = explode('=', $element, 2);
+        }
+        if (!empty($elementValue)) {
+          $result[strtolower($elementName)] = $elementValue;
+        }
+      }
+      return $result;
+    }
+
+    protected function appendValueNode(Element $parent, $type, $values) {
+      switch ($type) {
+      case ':value' :
+        $parent->append((string)$values);
+        return;
+      case ':assoc' :
+        $tokenValues = $this->getValuesAsList($values);
+        foreach ($tokenValues as $tokenName => $tokenValue) {
+          $this->appendValueNode($parent, $tokenName, $tokenValue);
+        }
+        return;
+      case 'utc-offset' :
+        if (preg_match(self::PATTERN_OFFSET, (string)$values, $match)) {
+          $values = sprintf(
+            '%s%s:%s',
+            $match['prefix'],
+            $match['hours'],
+            $match['minutes']
+          );
+        }
+        break;
+      case 'date-time-or-date' :
+        if (preg_match(self::PATTERN_DATETIME, (string)$values, $match)) {
+          $type = 'date-time';
+          $values = sprintf(
+            '%s-%s-%sT%s:%s:%s%s',
+            $match['year'],
+            $match['month'],
+            $match['day'],
+            $match['hour'],
+            $match['minute'],
+            $match['second'],
+            isset($match['offset']) ? $match['offset'] : ''
+          );
+        } elseif (preg_match(self::PATTERN_DATE, (string)$values, $match)) {
+          $type = 'date';
+          $values = sprintf(
+            '%s-%s-%s',
+            $match['year'],
+            $match['month'],
+            $match['day']
+          );
+        } else {
+          return;
+        }
+        break;
+      }
       if (is_array($values) || $values instanceof \Traversable) {
         foreach ($values as $value) {
           $parent->appendElement($type, $value);

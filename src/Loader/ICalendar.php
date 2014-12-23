@@ -8,6 +8,7 @@
 
 namespace FluentDOM\ContentLines\Loader {
 
+  use FluentDOM\Element;
   use FluentDOM\Loader\Supports;
 
   /**
@@ -81,14 +82,14 @@ namespace FluentDOM\ContentLines\Loader {
       'RESOURCES' => 'text',
       'STATUS' => 'text',
       'SUMMARY' => 'text',
-      'COMPLETED' => 'date-time',
-      'DTEND' => 'date-time',
-      'DUE' => 'date-time',
-      'DTSTART' => 'date-time',
+      'COMPLETED' => 'date-time-or-date',
+      'DTEND' => 'date-time-or-date',
+      'DUE' => 'date-time-or-date',
+      'DTSTART' => 'date-time-or-date',
       'DURATION' => 'duration',
       'FREEBUSY' => 'period',
       'TRANSP' => 'text',
-      'TZID' => 'text',
+      'TZID' => ':value',
       'TZNAME' => 'text',
       'TZOFFSETFROM' => 'utc-offset',
       'TZOFFSETTO' => 'utc-offset',
@@ -97,22 +98,22 @@ namespace FluentDOM\ContentLines\Loader {
       'ATTENDEE' => 'cal-address',
       'CONTACT' => 'text',
       'ORGANIZER' => 'cal-address',
-      'RECURRENCE-ID' => 'date-time',
+      'RECURRENCE-ID' => 'date-time-or-date',
       'RELATED-TO' => 'text',
       'URL' => 'uri',
       'UID' => 'text',
       // Recurrence Component Properties
-      'EXDATE' => 'date-time',
-      'RDATE' => 'date-time',
-      'RRULE' => ':assoc',
+      'EXDATE' => 'date-time-or-date',
+      'RDATE' => 'date-time-or-date',
+      'RRULE' => ':recur',
       // Alarm Component Properties
       'ACTION' => 'text',
       'REPEAT' => 'integer',
       'TRIGGER' => 'duration',
       // Change Management Component Properties
-      'CREATED' => 'date-time',
-      'DTSTAMP' => 'date-time',
-      'LAST-MODIFIED' => 'date-time',
+      'CREATED' => 'date-time-or-date',
+      'DTSTAMP' => 'date-time-or-date',
+      'LAST-MODIFIED' => 'date-time-or-date',
       'SEQUENCE' => 'integer'
     ];
 
@@ -121,6 +122,41 @@ namespace FluentDOM\ContentLines\Loader {
      */
     public function getSupported() {
       return array('text/calendar');
+    }
+
+    protected function appendValueNode(Element $parent, $type, $values) {
+      switch ($type) {
+      case ':recur' :
+        $tokenValues = $this->getValuesAsList($values);
+        $parent = $parent->appendElement('recur');
+        foreach ($tokenValues as $tokenName => $tokenValue) {
+          $this->appendValueNode($parent, $tokenName, $tokenValue);
+        }
+        return;
+      case 'period' :
+        list($start, $duration) = explode('/', (string)$values);
+        $parent = $parent->appendElement($type);
+        if (preg_match(self::PATTERN_DATETIME, $start, $match)) {
+          $parent->appendElement(
+            'start',
+            sprintf(
+              '%s-%s-%sT%s:%s:%s%s',
+              $match['year'],
+              $match['month'],
+              $match['day'],
+              $match['hour'],
+              $match['minute'],
+              $match['second'],
+              isset($match['offset']) ? $match['offset'] : ''
+            )
+          );
+        }
+        $parent->appendElement(
+          'duration', $duration
+        );
+        return;
+      }
+      parent::appendValueNode($parent, $type, $values);
     }
   }
 }

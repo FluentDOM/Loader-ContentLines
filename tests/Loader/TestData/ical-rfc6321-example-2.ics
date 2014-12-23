@@ -26,7 +26,7 @@ RRULE:FREQ=DAILY;COUNT=5
 RDATE;TZID=US/Eastern;VALUE=PERIOD:20060102T150000/PT2H
 SUMMARY:Event #2
 DESCRIPTION:We are having a meeting all this week at 12 pm fo
- r one hour\, with an additional meeting on the first day 2 h
+ r one hour, with an additional meeting on the first day 2 h
  ours long.\nPlease bring your own lunch for the 12 pm meetin
  gs.
 UID:00959BC664CA650E933C892C@example.com
