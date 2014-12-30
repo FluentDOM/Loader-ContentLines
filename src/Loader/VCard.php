@@ -31,8 +31,7 @@ namespace FluentDOM\ContentLines\Loader {
       'CLASS' => 'PUBLIC',
       'PRODID' => NULL,
       'REV' => NULL,
-      'UID' => NULL,
-      'VERSION' => NULL
+      'UID' => NULL
     ];
 
     protected $_parameters = [
@@ -50,12 +49,13 @@ namespace FluentDOM\ContentLines\Loader {
     ];
 
     protected $_components = [
+      'VERSION' => ':ignore',
       // General Properties
       'SOURCE' => 'uri',
       'KIND' => 'text',
       // Identification Properties
       'FN' => 'text',
-      'N' => ['family', 'given', 'other', 'prefix', 'suffix'],
+      'N' => ['surname', 'given', 'other', 'prefix', 'suffix'],
       'NICKNAME' => 'text',
       'PHOTO' => 'uri',
       'BDAY' => 'date',
@@ -87,7 +87,6 @@ namespace FluentDOM\ContentLines\Loader {
       'UID' => 'uri',
       'CLIENTPIDMAP' => ['pid', 'uri'],
       'URL' => 'uri',
-      'VERSION' => 'text',
       // Security Properties,
       'KEY' => 'uri',
       // Calendar Properties

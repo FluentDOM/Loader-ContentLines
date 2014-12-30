@@ -98,15 +98,15 @@ namespace FluentDOM\ContentLines\Loader {
           $componentsNode = $this->endGroup($componentsNode, strtolower($token->value));
           break;
         case 'XML' :
-          // @todo implement XML property
-          break;
         default :
           if (!isset($propertiesNode)) {
             list($groupNode, $propertiesNode, $componentsNode) = $this->startGroup(
               $componentsNode, $this->_nodeNames['default-component']
             );
           }
-          if (array_key_exists($token->name, $this->_properties)) {
+          if ($token->name === 'XML') {
+            $propertiesNode->appendXml((string)$token->value);
+          } elseif (array_key_exists($token->name, $this->_properties)) {
             if ($this->_addPropertiesAsAttributes) {
               $groupNode->setAttribute(strtolower($token->name), (string)$token->value);
               continue;
@@ -206,6 +206,11 @@ namespace FluentDOM\ContentLines\Loader {
 
     protected function appendValueNode(Element $parent, $type, $values) {
       switch ($type) {
+      case ':ignore' :
+        if ($parent->parentNode instanceof \DOMNode) {
+          $parent->parentNode->removeChild($parent);
+        }
+        return;
       case ':value' :
         $parent->append((string)$values);
         return;

@@ -1,0 +1,8 @@
+BEGIN:VCARD
+VERSION:4.0
+FN:J. Doe
+N:Doe;J.;;
+X-FILE;MEDIATYPE=image/jpeg:alien.jpg
+XML:<a xmlns="http://www.w3.org/1999/xhtml"\n
+ href="http://www.example.com">My web page!</a>
+END:VCARD

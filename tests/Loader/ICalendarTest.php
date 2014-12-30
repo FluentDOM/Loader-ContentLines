@@ -8,7 +8,7 @@ namespace FluentDOM\ContentLines\Loader {
   class ICalendarTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @covers FluentDOM\Loader\Text\ICalendar
+     * @covers FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testSupportsExpectingTrue() {
       $loader = new ICalendar();
@@ -16,7 +16,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\Loader\Text\ICalendar
+     * @covers FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testSupportsExpectingFalse() {
       $loader = new ICalendar();
@@ -24,7 +24,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\Loader\Text\ICalendar
+     * @covers FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testLoadRfc6321ExampleOne() {
       $loader = new ICalendar();
@@ -38,7 +38,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\Loader\Text\ICalendar
+     * @covers FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testLoadRfc6321ExampleTwo() {
       $loader = new ICalendar();
@@ -52,7 +52,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\Loader\Text\ICalendar
+     * @covers FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testLoadWithInvalidSourceExpectingNull() {
       $loader = new ICalendar();

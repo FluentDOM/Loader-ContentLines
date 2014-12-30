@@ -9,7 +9,7 @@ namespace FluentDOM\ContentLines\Loader {
   class ContentLinesTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @covers FluentDOM\Loader\Text\ContentLines
+     * @covers FluentDOM\ContentLines\Loader\ContentLines
      * @dataProvider provideContentLines
      */
     public function testLoad($expectedXml, $textInput) {

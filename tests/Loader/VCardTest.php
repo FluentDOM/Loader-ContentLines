@@ -8,7 +8,7 @@ namespace FluentDOM\ContentLines\Loader {
   class VCardTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @covers FluentDOM\Loader\Text\VCard
+     * @covers FluentDOM\ContentLines\Loader\VCard
      */
     public function testSupportsExpectingTrue() {
       $loader = new VCard();
@@ -16,7 +16,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\Loader\Text\VCard
+     * @covers FluentDOM\ContentLines\Loader\VCard
      */
     public function testSupportsExpectingFalse() {
       $loader = new VCard();
@@ -24,7 +24,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\Loader\Text\VCard
+     * @covers FluentDOM\ContentLines\Loader\VCard
      */
     public function testLoad() {
       $loader = new VCard();
@@ -53,12 +53,26 @@ END:VCARD',
     }
 
     /**
-     * @covers FluentDOM\Loader\Text\VCard
+     * @covers FluentDOM\ContentLines\Loader\VCard
      */
     public function testLoadWithInvalidSourceExpectingNull() {
       $loader = new VCard();
       $this->assertNull(
         $loader->load(FALSE, 'text/vcard')
+      );
+    }
+
+    /**
+     * @covers FluentDOM\ContentLines\Loader\VCard
+     */
+    public function testLoadRfc6351ExampleOne() {
+      $loader = new VCard();
+      $this->assertXmlStringEqualsXmlFile(
+        __DIR__.'/TestData/vcard-rfc6351-example-1.xml',
+        $loader->load(
+          __DIR__.'/TestData/vcard-rfc6351-example-1.vcs',
+          'text/vcard'
+        )->saveXML()
       );
     }
   }
