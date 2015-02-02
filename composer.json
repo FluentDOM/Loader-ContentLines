@@ -5,13 +5,12 @@
     "keywords": ["xml","dom","vcard", "ícalendar", "fluentdom"],
     "license": "MIT",
     "homepage": "http://fluentdom.org",
-    "minimum-stability": "dev",
     "authors": [
         {"name": "FluentDOM Contributors", "homepage": "https://github.com/FluentDOM/FluentDOM/contributors"}
     ],
     "require": {
       "php": ">=5.4.0",
-      "fluentdom/fluentdom": "*"
+      "fluentdom/fluentdom": "~5.2"
     },
     "autoload": {
         "files" : ["src/plugin.php"],

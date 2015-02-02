@@ -1,0 +1,69 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "84bdb688f64f459fbe456472cc7b166a",
+    "packages": [
+        {
+            "name": "fluentdom/fluentdom",
+            "version": "5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FluentDOM/FluentDOM.git",
+                "reference": "6304ef1364b28ce60deb542409814105d00c3be8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FluentDOM/FluentDOM/zipball/6304ef1364b28ce60deb542409814105d00c3be8",
+                "reference": "6304ef1364b28ce60deb542409814105d00c3be8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "suggest": {
+                "carica/phpcss": "Allows to use css selectors with FluentDOM::QueryCss().",
+                "symfony/css-selector": "Allows to use css selectors with FluentDOM::QueryCss()."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/FluentDOM.php"
+                ],
+                "psr-4": {
+                    "FluentDOM\\": "src/FluentDOM"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "FluentDOM Contributors",
+                    "homepage": "https://github.com/FluentDOM/FluentDOM/contributors"
+                }
+            ],
+            "description": "A fluent api for the php dom extension.",
+            "homepage": "http://fluentdom.org",
+            "keywords": [
+                "dom",
+                "jquery",
+                "xml"
+            ],
+            "time": "2015-02-01 11:13:04"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.4.0"
+    },
+    "platform-dev": []
+}
