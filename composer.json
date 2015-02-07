@@ -2,7 +2,7 @@
     "name": "fluentdom/loader-contentlines",
     "type": "library",
     "description": "vCard/iCalendar loaders for FluentDOM",
-    "keywords": ["xml","dom","vcard", "ícalendar", "fluentdom"],
+    "keywords": ["xml","dom","vcard", "icalendar", "fluentdom"],
     "license": "MIT",
     "homepage": "http://fluentdom.org",
     "authors": [
