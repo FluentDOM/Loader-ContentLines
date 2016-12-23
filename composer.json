@@ -10,7 +10,7 @@
     ],
     "require": {
       "php": ">=5.4.0",
-      "fluentdom/fluentdom": "~5.2"
+      "fluentdom/fluentdom": "^6.0"
     },
     "autoload": {
         "files" : ["src/plugin.php"],

@@ -2,11 +2,13 @@
 
 namespace FluentDOM\ContentLines\Loader {
 
+  use FluentDOM\Exceptions\InvalidFragmentLoader;
   use FluentDOM\Iterators\MapIterator;
   use FluentDOM\Loadable;
   use FluentDOM\Appendable;
   use FluentDOM\Document;
   use FluentDOM\Element;
+  use FluentDOM\Loader\Options;
   use FluentDOM\Loader\Supports;
 
   abstract class ContentLines implements Loadable, \IteratorAggregate, Appendable {
@@ -30,7 +32,10 @@ namespace FluentDOM\ContentLines\Loader {
 
     protected $_components = [];
 
-    protected $_lines = [];
+    /**
+     * @var \Traversable
+     */
+    protected $_lines;
 
     protected $_addPropertiesAsAttributes = TRUE;
 
@@ -64,10 +69,10 @@ namespace FluentDOM\ContentLines\Loader {
      * @see Loadable::load
      * @param mixed $source
      * @param string $contentType
-     * @param array $options
+     * @param array|\Traversable|Options $options
      * @return Document|NULL
      */
-    public function load($source, $contentType, array $options = []) {
+    public function load($source, $contentType, $options = []) {
       if ($this->supports($contentType) && ($this->_lines = $this->getLines($source))) {
         $dom = new Document('1.0', 'UTF-8');
         $dom->registerNamespace('', $this->_namespace);
@@ -77,6 +82,10 @@ namespace FluentDOM\ContentLines\Loader {
         return $dom;
       }
       return NULL;
+    }
+
+    public function loadFragment($source, $contentType, $options = []) {
+      throw new InvalidFragmentLoader(static::class);
     }
 
     public function getIterator() {
@@ -265,6 +274,10 @@ namespace FluentDOM\ContentLines\Loader {
       }
     }
 
+    /**
+     * @param $source
+     * @return \Traversable
+     */
     protected function getLines($source) {
       $result = null;
       if ($this->isFile($source)) {

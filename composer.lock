@@ -1,31 +1,32 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "84bdb688f64f459fbe456472cc7b166a",
+    "hash": "c52042a142b7c22b7b6388a48a5a34a0",
+    "content-hash": "bf64e65f6c0adcfc9faba3fea37c6361",
     "packages": [
         {
             "name": "fluentdom/fluentdom",
-            "version": "5.2.0",
+            "version": "6.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluentDOM/FluentDOM.git",
-                "reference": "6304ef1364b28ce60deb542409814105d00c3be8"
+                "reference": "e8d0e48ed33eee4c7abc6e816afab55a106c3dad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluentDOM/FluentDOM/zipball/6304ef1364b28ce60deb542409814105d00c3be8",
-                "reference": "6304ef1364b28ce60deb542409814105d00c3be8",
+                "url": "https://api.github.com/repos/FluentDOM/FluentDOM/zipball/e8d0e48ed33eee4c7abc6e816afab55a106c3dad",
+                "reference": "e8d0e48ed33eee4c7abc6e816afab55a106c3dad",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "ext-dom": "*",
+                "php": ">=5.6.0"
             },
             "suggest": {
-                "carica/phpcss": "Allows to use css selectors with FluentDOM::QueryCss().",
-                "symfony/css-selector": "Allows to use css selectors with FluentDOM::QueryCss()."
+                "fluentdom/css-selector": "Allows to use css selectors."
             },
             "type": "library",
             "autoload": {
@@ -36,7 +37,7 @@
                     "FluentDOM\\": "src/FluentDOM"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -49,17 +50,20 @@
             "description": "A fluent api for the php dom extension.",
             "homepage": "http://fluentdom.org",
             "keywords": [
+                "Xpath",
                 "dom",
                 "jquery",
                 "xml"
             ],
-            "time": "2015-02-01 11:13:04"
+            "time": "2016-12-22 11:12:04"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "fluentdom/fluentdom": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
