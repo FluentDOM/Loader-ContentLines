@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c52042a142b7c22b7b6388a48a5a34a0",
-    "content-hash": "bf64e65f6c0adcfc9faba3fea37c6361",
+    "hash": "2e5a116bbb3e396dd1f75f8c305e83b0",
+    "content-hash": "fe78a4242a4bdee4c48d3d09daec5b8c",
     "packages": [
         {
             "name": "fluentdom/fluentdom",
-            "version": "6.0.x-dev",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluentDOM/FluentDOM.git",
-                "reference": "e8d0e48ed33eee4c7abc6e816afab55a106c3dad"
+                "reference": "cb09b82bab34ad2f3e9daeb9087dff7b850106dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluentDOM/FluentDOM/zipball/e8d0e48ed33eee4c7abc6e816afab55a106c3dad",
-                "reference": "e8d0e48ed33eee4c7abc6e816afab55a106c3dad",
+                "url": "https://api.github.com/repos/FluentDOM/FluentDOM/zipball/cb09b82bab34ad2f3e9daeb9087dff7b850106dc",
+                "reference": "cb09b82bab34ad2f3e9daeb9087dff7b850106dc",
                 "shasum": ""
             },
             "require": {
@@ -55,15 +55,13 @@
                 "jquery",
                 "xml"
             ],
-            "time": "2016-12-22 11:12:04"
+            "time": "2016-12-24 19:07:45"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "fluentdom/fluentdom": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
