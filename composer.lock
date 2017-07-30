@@ -4,21 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2e5a116bbb3e396dd1f75f8c305e83b0",
-    "content-hash": "fe78a4242a4bdee4c48d3d09daec5b8c",
+    "content-hash": "519776a8d73be4871de61184ef1c7502",
     "packages": [
         {
             "name": "fluentdom/fluentdom",
-            "version": "6.0.1",
+            "version": "6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluentDOM/FluentDOM.git",
-                "reference": "cb09b82bab34ad2f3e9daeb9087dff7b850106dc"
+                "reference": "32063e121ebbb0bd2fdf21a273a8e0184aba59e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluentDOM/FluentDOM/zipball/cb09b82bab34ad2f3e9daeb9087dff7b850106dc",
-                "reference": "cb09b82bab34ad2f3e9daeb9087dff7b850106dc",
+                "url": "https://api.github.com/repos/FluentDOM/FluentDOM/zipball/32063e121ebbb0bd2fdf21a273a8e0184aba59e7",
+                "reference": "32063e121ebbb0bd2fdf21a273a8e0184aba59e7",
                 "shasum": ""
             },
             "require": {
@@ -55,7 +54,7 @@
                 "jquery",
                 "xml"
             ],
-            "time": "2016-12-24 19:07:45"
+            "time": "2017-07-29T17:49:41+00:00"
         }
     ],
     "packages-dev": [],
@@ -67,5 +66,8 @@
     "platform": {
         "php": ">=5.4.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "5.6"
+    }
 }

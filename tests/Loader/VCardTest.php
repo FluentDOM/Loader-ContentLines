@@ -1,14 +1,14 @@
 <?php
 namespace FluentDOM\ContentLines\Loader {
 
-  use FluentDOM\TestCase;
+  use PHPUnit\Framework\TestCase;
 
   require_once(__DIR__.'/../../vendor/autoload.php');
 
-  class VCardTest extends \PHPUnit_Framework_TestCase {
+  class VCardTest extends TestCase {
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\VCard
+     * @covers \FluentDOM\ContentLines\Loader\VCard
      */
     public function testSupportsExpectingTrue() {
       $loader = new VCard();
@@ -16,7 +16,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\VCard
+     * @covers \FluentDOM\ContentLines\Loader\VCard
      */
     public function testSupportsExpectingFalse() {
       $loader = new VCard();
@@ -24,7 +24,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\VCard
+     * @covers \FluentDOM\ContentLines\Loader\VCard
      */
     public function testLoad() {
       $loader = new VCard();
@@ -53,7 +53,7 @@ END:VCARD',
     }
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\VCard
+     * @covers \FluentDOM\ContentLines\Loader\VCard
      */
     public function testLoadWithInvalidSourceExpectingNull() {
       $loader = new VCard();
@@ -63,7 +63,7 @@ END:VCARD',
     }
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\VCard
+     * @covers \FluentDOM\ContentLines\Loader\VCard
      */
     public function testLoadRfc6351ExampleOne() {
       $loader = new VCard();

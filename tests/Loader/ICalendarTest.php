@@ -1,14 +1,14 @@
 <?php
 namespace FluentDOM\ContentLines\Loader {
 
-  use FluentDOM\TestCase;
+  use PHPUnit\Framework\TestCase;
 
-  require_once(__DIR__.'/../../vendor/autoload.php');
+  require_once __DIR__.'/../../vendor/autoload.php';
 
-  class ICalendarTest extends \PHPUnit_Framework_TestCase {
+  class ICalendarTest extends TestCase {
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\ICalendar
+     * @covers \FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testSupportsExpectingTrue() {
       $loader = new ICalendar();
@@ -16,7 +16,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\ICalendar
+     * @covers \FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testSupportsExpectingFalse() {
       $loader = new ICalendar();
@@ -24,7 +24,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\ICalendar
+     * @covers \FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testLoadRfc6321ExampleOne() {
       $loader = new ICalendar();
@@ -38,7 +38,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\ICalendar
+     * @covers \FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testLoadRfc6321ExampleTwo() {
       $loader = new ICalendar();
@@ -52,7 +52,7 @@ namespace FluentDOM\ContentLines\Loader {
     }
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\ICalendar
+     * @covers \FluentDOM\ContentLines\Loader\ICalendar
      */
     public function testLoadWithInvalidSourceExpectingNull() {
       $loader = new ICalendar();

@@ -2,14 +2,14 @@
 namespace FluentDOM\ContentLines\Loader {
 
   use FluentDOM\Loader\Supports;
-  use FluentDOM\TestCase;
+  use PHPUnit\Framework\TestCase;
 
-  require_once(__DIR__.'/../../vendor/autoload.php');
+  require_once __DIR__.'/../../vendor/autoload.php';
 
-  class ContentLinesTest extends \PHPUnit_Framework_TestCase {
+  class ContentLinesTest extends TestCase {
 
     /**
-     * @covers FluentDOM\ContentLines\Loader\ContentLines
+     * @covers \FluentDOM\ContentLines\Loader\ContentLines
      * @dataProvider provideContentLines
      */
     public function testLoad($expectedXml, $textInput) {
